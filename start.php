@@ -1,63 +1,84 @@
 <?php
-/**
- * FluxBB - fast, light, user-friendly PHP forum software
- * Copyright (C) 2008-2012 FluxBB.org
- * based on code by Rickard Andersson copyright (C) 2002-2008 PunBB
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public license for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category	FluxBB
- * @package		Core
- * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
- * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
- */
 
-define('FLUXBB_VERSION', '2.0-alpha1');
+/*
+|--------------------------------------------------------------------------
+| Create The Application
+|--------------------------------------------------------------------------
+|
+| The first thing we will do is create a new Laravel application instance
+| which serves as the "glue" for all the components of Laravel, and is
+| the IoC container for the system binding all of the various parts.
+|
+*/
 
+$app = new Illuminate\Foundation\Application;
 
-Autoloader::namespaces(array(
-	'fluxbb'	=> __DIR__ . DS . 'classes',
+/*
+|--------------------------------------------------------------------------
+| Define The Application Path
+|--------------------------------------------------------------------------
+|
+| Here we just defined the path to the application directory. Most likely
+| you will never need to change this value as the default setup should
+| work perfectly fine for the vast majority of all our applications.
+|
+*/
+
+$app->instance('path', $appPath = __DIR__);
+
+$app->instance('path.base', __DIR__);
+
+/*
+|--------------------------------------------------------------------------
+| Detect The Application Environment
+|--------------------------------------------------------------------------
+|
+| Laravel takes a dead simple approach to your application environments
+| so you can just specify a machine name or HTTP host that matches a
+| given environment, then we will automatically detect it for you.
+|
+*/
+
+$env = $app->detectEnvironment(array(
+
+	'local' => array('localhost', '*.dev', '*.app'),
+
 ));
 
+/*
+|--------------------------------------------------------------------------
+| Load The Application
+|--------------------------------------------------------------------------
+|
+| Here we will load the Illuminate application. We'll keep this is in a
+| separate location so we can isolate the creation of an application
+| from the actual running of the application with a given request.
+|
+*/
 
-if (fluxbb\Core::installed())
-{
-	Request::set_env('fluxbb');
-}
+require $app->getBootstrapFile();
 
-// Set up our custom session handler
-if (!Request::cli() && !Session::started())
-{
-	Session::extend('session', function()
-	{
-		return new fluxbb\Session\Driver(Laravel\Database::connection());
-	});
+/*
+|--------------------------------------------------------------------------
+| Bootstrap FluxBB
+|--------------------------------------------------------------------------
+|
+| Include the FluxBB start file that will setup everything that's needed
+| for FluxBB to function in a Laravel context.
+|
+*/
 
-	Config::set('session.driver', 'session');
+require __DIR__.'/vendor/fluxbb/core/start.php';
 
-	Session::load();	
-}
+/*
+|--------------------------------------------------------------------------
+| Return The Application
+|--------------------------------------------------------------------------
+|
+| This script returns the application instance. The instance is given to
+| the calling script so we can separate the building of the instances
+| from the actual running of the application and sending responses.
+|
+*/
 
-
-// View composers
-require 'helpers/composers.php';
-
-// Route filters
-require 'helpers/filters.php';
-
-// HTML helpers
-require 'helpers/html.php';
-
-// Validators
-require 'helpers/validator.php';
+return $app;

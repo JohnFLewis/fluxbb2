@@ -1,101 +1,27 @@
 <?php
+/**
+ * FluxBB - fast, light, user-friendly PHP forum software
+ * Copyright (C) 2008-2012 FluxBB.org
+ * based on code by Rickard Andersson copyright (C) 2002-2008 PunBB
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public license for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category	FluxBB
+ * @package		Core
+ * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
+ * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
+ */
 
-return array(
-
-	'viewforum' => 
-		array(
-			'url'		=> 'forum/{id}',
-			'action'	=> 'home@forum',
-		),
-	'viewtopic' =>
-		array(
-			'url'		=> 'topic/{id}',
-			'action'	=> 'home@topic',
-		),
-	'viewpost' =>
-		array(
-			'url'		=> 'post/{id}',
-			'action'	=> 'home@post',
-		),
-	'index' =>
-		array(
-			'url'		=> '',
-			'action'	=> 'home@index',
-		),
-	'profile' =>
-		array(
-			'url'		=> 'profile/{id}/{username}',
-			'action'	=> 'user@profile',
-		),
-	'userlist' =>
-		array(
-			'url'		=> 'users',
-			'action'	=> 'user@list',
-		),
-	'register' =>
-		array(
-			'url'		=> 'register',
-			'action'	=> 'auth@register',
-		),
-	'login' =>
-		array(
-			'url'		=> 'login',
-			'action'	=> 'auth@login',
-		),
-	'forgot_password' =>
-		array(
-			'url'		=> 'forgot_password.html',
-			'action'	=> 'auth@forgot',
-		),
-	'logout' =>
-		array(
-			'url'		=> 'logout',
-			'action'	=> 'auth@logout',
-		),
-	'rules' =>
-		array(
-			'url'		=> 'rules',
-			'action'	=> 'misc@rules',
-		),
-	'email' =>
-		array(
-			'url'		=> 'email/{id}',
-			'action'	=> 'misc@email',
-		),
-	'search' =>
-		array(
-			'url'		=> 'search',
-			'action'	=> 'search@index',
-		),
-	'post_report' =>
-		array(
-			'url'		=> 'post/{id}/report',
-			'action'	=> 'misc@report',
-		),
-	'post_delete' =>
-		array(
-			'url'		=> 'post/{id}/delete',
-			'action'	=> 'posting@delete',
-		),
-	'post_edit' =>
-		array(
-			'url'		=> 'post/{id}/edit',
-			'action'	=> 'posting@edit',
-		),
-	'post_quote' =>
-		array(
-			'url'		=> 'post/{id}/quote',
-			'action'	=> 'posting@quote',
-		),
-	'reply' =>
-		array(
-			'url'		=> 'topic/{id}/reply',
-			'action'	=> 'posting@reply',
-		),
-	'new_topic' =>
-		array(
-			'url'		=> 'forum/{id}/topic/new',
-			'action'	=> 'posting@topic',
-		),
-
-);
+// illuminate/foundation requires this file, so we just leave it empty
+// see https://github.com/illuminate/foundation/issues/55
